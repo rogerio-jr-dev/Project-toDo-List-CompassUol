@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "toDoList",
+    "slug": "toDoList",
+    "version": "1.0.0",
+    "scheme": "toDoList",
+    "orientation": "portrait",
+    "icon": "./assets/image/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/image/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F0EDF2"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/image/icon.png",
+        "backgroundColor": "#F0EDF2"
+      }
+    },
+    "web": {
+      "favicon": "./assets/image/icon.png"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
