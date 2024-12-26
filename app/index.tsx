@@ -22,32 +22,44 @@ export default function Screen() {
   const togglePasswordVisibility = (): void => {
     setHidePassword((prevState) => !prevState);
   };
-  
+
+
   const handleLogin = () => {
+      const username: string = "admin";
+      const password: string = "password"; 
+
     if (usernameInput === username && passwordInput === password) {
       router.push("/home");
+    } else{
+      console.log("error");
     }
   };
   
-
-const username:string = "admin";
-const password: string = "password"; 
 
   return (
     <Container>
       <Logo />
       <InputArea>
-        <StyledInput placeholder="Username" />
+        <StyledInput
+          placeholder="Username"
+          value={usernameInput}
+          onChangeText={setUsernameInput}
+        />
         <StyledView>
           <StyledInput
             placeholder="Password"
-            secureTextEntry={hidePassword}
+            secureTextEntry={hidePassword} 
+            value={passwordInput}
+            onChangeText={setPasswordInput}
             password={true}
           />
           <StyledPressable onPress={togglePasswordVisibility}>
             {hidePassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
           </StyledPressable>
         </StyledView>
+        <StyledPressable onPress={handleLogin}>
+          <ButtonText>Login</ButtonText>
+        </StyledPressable>
       </InputArea>
     </Container>
   );
@@ -77,7 +89,8 @@ export const StyledInput = styled.TextInput<{ password?: boolean }>`
   padding: 15px 18px;
   border: 2px solid ${(props) => props.theme.colors.gray[300]};
   border-radius: 8px;
-  font-size: 16px; ${(props) =>  props.password && ` flex: 1; `}
+  font-size: 16px;
+  ${(props) => props.password && ` flex: 1; `}
 `;
 
 export const StyledView = styled.View`
@@ -94,5 +107,10 @@ export const StyledPressable = styled(Pressable)`
   height: 52px;
   background-color: ${(props) => props.theme.colors.purple.base};
   border-radius: 8px;
-  margin-left: 8px; 
+  margin-left: 8px;
+`;
+export const ButtonText = styled.Text`
+  color: ${(props) => props.theme.colors.white};
+  font-size: 16px;
+  font-weight: bold;
 `;
