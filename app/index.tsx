@@ -6,9 +6,10 @@ import {
   Pressable,
   StatusBar,
   Platform,
-  Button,
+  Text,
 } from "react-native";
 import styled from "styled-components/native";
+import { Button } from "../src/components/button/button";
 import Logo from "../assets/image/logo.svg";
 import EyeClosedIcon from "../assets/image/eyeClosedIcon.svg";
 import EyeOpenIcon from "../assets/image/eyeOpenIcon.svg";
@@ -48,7 +49,7 @@ export default function Screen() {
         <StyledView>
           <StyledInput
             placeholder="Password"
-            secureTextEntry={hidePassword} 
+            secureTextEntry={hidePassword}
             value={passwordInput}
             onChangeText={setPasswordInput}
             password={true}
@@ -57,9 +58,12 @@ export default function Screen() {
             {hidePassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
           </StyledPressable>
         </StyledView>
-        <StyledPressable onPress={handleLogin}>
+        <Button>
+          <Button.Title>Login</Button.Title>
+        </Button>
+        {/* <StyledPressable onPress={handleLogin}>
           <ButtonText>Login</ButtonText>
-        </StyledPressable>
+        </StyledPressable> */}
       </InputArea>
     </Container>
   );
