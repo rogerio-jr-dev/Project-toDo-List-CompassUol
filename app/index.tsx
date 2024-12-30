@@ -54,16 +54,14 @@ export default function Screen() {
             onChangeText={setPasswordInput}
             password={true}
           />
+
           <StyledPressable onPress={togglePasswordVisibility}>
             {hidePassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
           </StyledPressable>
         </StyledView>
-        <Button>
+        <Button onPress={handleLogin}>
           <Button.Title>Login</Button.Title>
         </Button>
-        {/* <StyledPressable onPress={handleLogin}>
-          <ButtonText>Login</ButtonText>
-        </StyledPressable> */}
       </InputArea>
     </Container>
   );
