@@ -8,9 +8,12 @@ import {
 import React, { Children } from "react";
 import styled from "styled-components/native";
 
-type ButtonProps = TouchableOpacityProps & { isLoading?: boolean };
+type ButtonProps = TouchableOpacityProps & {
+  isLoading?: boolean;
+  padding?: number;
+};
 
-function Button({ children, style, isLoading = false, ...rest }: ButtonProps) {
+function Button({ children, style, isLoading = false, padding, ...rest }: ButtonProps) {
   return (
     <StyledTouchableOpacity
       activeOpacity={0.4}
@@ -36,14 +39,19 @@ function Title({ children }: TextProps) {
 
 
 
-export const StyledTouchableOpacity = styled(TouchableOpacity)`
-  justify-content:center;
-  align-items:center;
+export const StyledTouchableOpacity = styled(TouchableOpacity)<{
+  width?: string | number;
+  height?: string | number;
+  padding?: number;
+}>`
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
-  width:100%;
-  height: 52px;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   background-color: ${(props) => props.theme.colors.purple.base};
   border-radius: 8px;
+  padding: ${(props) => (props.padding ? `${props.padding}px` : "0px")};
 `;
 
 export const TitleText = styled.Text`

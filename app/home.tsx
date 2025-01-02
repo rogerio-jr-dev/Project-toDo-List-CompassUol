@@ -1,25 +1,27 @@
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import styled from "styled-components/native";
-import StyledLogOutIcon from "../src/logOut/logout";
+import Header from "../src/components/header/header";
+import Task from "../src/components/task/task";
+import Loading from "../src/components/task/loading";
 
 
 
 export default function HomeScreen() {
+ 
   return (
     <Container>
-      <StyledLogOutIcon />
-      <Title>Bem-vindo à página Home!</Title>
+      <Header />
+      <Content>
+        <Task />
+      </Content>
     </Container>
   );
 }
 
 const Container = styled(SafeAreaView)`
   flex: 1;
-  padding: 16px;
 `;
 
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+const Content = styled(View)`
+  flex: 1;
 `;
