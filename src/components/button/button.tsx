@@ -37,8 +37,6 @@ function Title({ children }: TextProps) {
   return <TitleText>{children}</TitleText>;
 }
 
-
-
 export const StyledTouchableOpacity = styled(TouchableOpacity)<{
   width?: string | number;
   height?: string | number;

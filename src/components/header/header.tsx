@@ -9,7 +9,6 @@ import SearchIcon from "../../../assets/image/search.svg";
 
 import Search from './search';
 
-
   const Header = () => {
 
      const { logout } = useAuth();
@@ -17,6 +16,7 @@ import Search from './search';
        logout();
        router.replace("/");
      };
+     
   return (
     <RNView>
         <StyledButton onPress={handleClick}>
