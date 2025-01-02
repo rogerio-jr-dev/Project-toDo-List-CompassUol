@@ -830,7 +830,7 @@
 
 "@expo-google-fonts/inter@^0.2.3":
   version "0.2.3"
-  resolved "https://registry.npmjs.org/@expo-google-fonts/inter/-/inter-0.2.3.tgz"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/inter/-/inter-0.2.3.tgz#82bf7224bb76fc6614a00393a9e9ee4d6dd09dcb"
   integrity sha512-iHK9FI+dnE45X5c2Z5hSFwNH4zUWethizpbv3XUn0FIGw5jwvzriENz0a6wCdkI4/d+1QkurnHo5XHti7TbNJA==
 
 "@expo/bunyan@^4.0.0":
@@ -3236,6 +3236,13 @@ expo-router@~4.0.15:
     schema-utils "^4.0.1"
     semver "~7.6.3"
     server-only "^0.0.1"
+
+expo-splash-screen@~0.29.18:
+  version "0.29.18"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.29.18.tgz#96ccce3d5a03389a9061743903b0a77c22a16796"
+  integrity sha512-bTBY+LF6YtYen2j60yGNh2SX/tG4UXZAyBCMMriOSiZZ7LSCs3ARyEufaSiWk+ckWShTeMqItOnaAN/CAF8MJA==
+  dependencies:
+    "@expo/prebuild-config" "^8.0.23"
 
 expo-status-bar@~2.0.0:
   version "2.0.0"
