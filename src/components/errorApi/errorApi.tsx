@@ -7,7 +7,6 @@ interface ErrorModalProps {
   onRetry: () => void;
   onClose: () => void;
 }
-
 const ErrorModal: React.FC<ErrorModalProps> = ({
   visible,
   onRetry,
@@ -19,9 +18,11 @@ const ErrorModal: React.FC<ErrorModalProps> = ({
         <ModalContainer>
           <ErrorText>ERROR</ErrorText>
           <MessageText>Erro ao receber dados da API.</MessageText>
-          <RetryButton onPress={onRetry}>
-            <RetryButtonText>Tentar novamente</RetryButtonText>
-          </RetryButton>
+          <RetryContainer>
+            <RetryButton onPress={onRetry}>
+              <RetryButtonText>Tentar novamente</RetryButtonText>
+            </RetryButton>
+          </RetryContainer>
         </ModalContainer>
       </Overlay>
     </Modal>
@@ -32,11 +33,12 @@ const Overlay = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(99, 98, 100, 0.8);
 `;
 
 const ModalContainer = styled.View`
   width: 80%;
+  height:193px;
   padding: 25px;
   background-color: white;
   border-radius: 10px;
@@ -51,23 +53,31 @@ const ErrorText = styled(Text)`
 `;
 
 const MessageText = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.inter.regular};
   font-size: 16px;
-  color: #333;
+  color: ${(props) => props.theme.colors.gray[500]};
   margin-bottom: 20px;
   text-align: center;
 `;
 
+const RetryContainer = styled.View`
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  padding: 10px;
+`;
+
 const RetryButton = styled(TouchableOpacity)`
-  background-color: #6200ea;
   padding: 10px 20px;
   border-radius: 8px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 `;
 
 const RetryButtonText = styled(Text)`
-  color: white;
-  font-size: 16px;
+  font-family: ${(props) => props.theme.fonts.inter.semiBold};
+  color: ${(props) => props.theme.colors.gray[500]};
+  font-size: 14px;
 `;
 
 export default ErrorModal;
