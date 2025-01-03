@@ -1,3 +1,4 @@
+import React from "react";
 import { Stack } from "expo-router";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "../src/styles/theme";
@@ -10,12 +11,11 @@ import {
   useFonts,
 } from "@expo-google-fonts/inter";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react"; 
+import { useEffect } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
   const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_700Bold,
@@ -44,6 +44,3 @@ export default function RootLayout() {
     </AuthProvider>
   );
 }
-
-
-  

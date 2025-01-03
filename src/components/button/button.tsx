@@ -11,6 +11,8 @@ import styled from "styled-components/native";
 type ButtonProps = TouchableOpacityProps & {
   isLoading?: boolean;
   padding?: number;
+  width?: string | number;
+  height?: string | number;
 };
 
 function Button({ children, style, isLoading = false, padding, ...rest }: ButtonProps) {

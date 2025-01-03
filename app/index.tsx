@@ -1,12 +1,7 @@
+import React from "react";
 import { useState, useContext } from "react";
 import { useRouter } from "expo-router";
-import {
-  SafeAreaView,
-  Platform,
-  StatusBar,
-  Pressable,
-  Text,
-} from "react-native";
+import {SafeAreaView, Platform,StatusBar,Pressable,} from "react-native";
 import styled from "styled-components/native";
 import { Button } from "../src/components/button/button";
 import Logo from "../assets/image/logo.svg";
@@ -20,7 +15,7 @@ export default function Screen() {
   const [passwordInput, setPasswordInput] = useState<string>("");
   const [usernameError, setUsernameError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext) || { login: () => {} };
   const router = useRouter();
 
   const togglePasswordVisibility = (): void => {
@@ -109,7 +104,9 @@ const StyledInput = styled.TextInput<{ password?: boolean; error?: boolean }>`
   width: 100%;
   height: 52px;
   padding: 15px 18px;
-  border: 2px solid  ${(props) => props.error ? props.theme.colors.danger : props.theme.colors.gray[300]};
+  border: 2px solid
+    ${(props) =>
+      props.error ? props.theme.colors.danger : props.theme.colors.gray[300]};
   border-radius: 8px;
   font-size: 16px;
   ${(props) => props.password && ` flex: 1; `}

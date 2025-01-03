@@ -1,6 +1,5 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import TaskIcon from "../../../assets/image/ClipboardTextRegular.svg"
+import React from 'react';
+import TaskIcon from "../../../assets/image/Clipboard.svg";
 import styled from 'styled-components/native';
 import { theme } from '../../styles/theme';
 
