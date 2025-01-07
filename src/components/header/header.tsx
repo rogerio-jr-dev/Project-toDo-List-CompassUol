@@ -6,8 +6,6 @@ import { router } from "expo-router";
 import Logo from "../../../assets/image/logo.svg";
 import LogOutIcon from "../../../assets/image/logOut.svg";
 
-import Search from './search';
-
   const Header = () => {
 
      const { logout } = useAuth();

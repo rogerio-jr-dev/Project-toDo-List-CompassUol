@@ -87,13 +87,13 @@ const ModalContent = styled.View`
 const TaskId = styled.Text`
   font-family: ${(props) => props.theme.fonts.inter.semiBold};
   color: ${(props) => props.theme.colors.gray[500]};
-`; 
+`;
 const Title = styled.Text`
   font-family: ${(props) => props.theme.fonts.inter.regular};
   color: ${(props) => props.theme.colors.gray[600]};
-  font-size:12px;
-  margin-top:14px;
-`; 
+  font-size: 12px;
+  margin-top: 14px;
+`;
 const ButtonArea = styled.View`
   flex-direction: row;
   justify-content: space-between;
