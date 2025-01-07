@@ -17,9 +17,9 @@ import {Icon, SearchArea } from "../src/components/header/header"
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]); // Estado para armazenar as tarefas filtradas
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]); 
   const [error, setError] = useState(false);
-  const [filterText, setFilterText] = useState(""); // Estado para o texto de filtro
+  const [filterText, setFilterText] = useState("");  
 
   interface Task {
     id: string;
@@ -38,7 +38,7 @@ export default function HomeScreen() {
       }));
 
       setTasks(tasksFormatted);
-      setFilteredTasks(tasksFormatted); // Inicializa as tarefas filtradas com todas as tarefas
+      setFilteredTasks(tasksFormatted); 
       setError(false);
     } catch (error) {
       console.error("Erro ao buscar tarefas:", error);
@@ -71,12 +71,12 @@ export default function HomeScreen() {
   };
 
   const handleSearch = (text: string) => {
-    setFilterText(text); // Atualiza o texto de filtro
+    setFilterText(text); 
     if (text === "") {
-      setFilteredTasks(tasks); // Se não houver texto, exibe todas as tarefas
+      setFilteredTasks(tasks);
     } else {
       const filtered = tasks.filter(
-        (task) => task.task.toLowerCase().includes(text.toLowerCase()) // Filtra com base no texto
+        (task) => task.task.toLowerCase().includes(text.toLowerCase()) 
       );
       setFilteredTasks(filtered);
     }
@@ -93,13 +93,13 @@ export default function HomeScreen() {
     <Container>
       <Header />
       <SearchArea>
-        <Search onSearch={handleSearch} />{" "}
+        <Search onSearch={handleSearch} /> 
         <Icon>
           <SearchIcon />
         </Icon>
       </SearchArea>
 
-      {/* Passa a função handleSearch para o Search */}
+     
       <Content>
         <Task
           tasksCreated={tasks.length}
@@ -107,7 +107,7 @@ export default function HomeScreen() {
         />
         {filteredTasks.length > 0 ? (
           <FlatList
-            data={filteredTasks} // Usa filteredTasks ao invés de tasks
+            data={filteredTasks}  
             renderItem={({ item }) => (
               <TaskList key={item.id} task={item} onTaskUpdate={fetchTasks} />
             )}

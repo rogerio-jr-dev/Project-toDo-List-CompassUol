@@ -13,7 +13,7 @@ interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({ task, onTaskUpdate }) => {
-  const [isCompleted, setIsCompleted] = useState(task.completed); // Inicializa com o valor correto da tarefa
+  const [isCompleted, setIsCompleted] = useState(task.completed);
   const [modalVisible, setModalVisible] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<{
     id: string;
@@ -21,16 +21,15 @@ const TaskList: React.FC<TaskListProps> = ({ task, onTaskUpdate }) => {
   } | null>(null);
 
   const toggleComplete = async () => {
-    try {
-      // Envia a requisição PATCH para atualizar o estado da tarefa na API
+    try { 
       const response = await api.patch(`/tarefas/${task.id}`, {
         completed: !isCompleted,
       });
 
       if (response.status === 200) {
-        // Verifica se a resposta foi bem sucedida
-        setIsCompleted((prev) => !prev); // Alterna o estado de completed
-        onTaskUpdate(); // Atualiza a lista de tarefas
+       
+        setIsCompleted((prev) => !prev);
+        onTaskUpdate(); 
       } else {
         alert("Erro ao atualizar tarefa.");
       }

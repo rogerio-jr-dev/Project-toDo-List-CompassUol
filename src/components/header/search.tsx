@@ -11,7 +11,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
 
   const handleSearch = (text: string) => {
     setSearchText(text);
-    onSearch(text); // Passa o texto para o componente pai
+    onSearch(text); 
   };
 
   return (
