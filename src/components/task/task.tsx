@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text } from "react-native";
 import styled from "styled-components/native";
-import Empty from "./empty";
 
-const Task = () => {
-  
-  const [tasksCreated, setTasksCreated] = useState(10); 
-  const [tasksCompleted, setTasksCompleted] = useState(5); 
+interface TaskProps {
+  tasksCreated: number;
+  tasksCompleted: number;
+}
+
+const Task: React.FC<TaskProps> = ({ tasksCreated, tasksCompleted }) => {
   return (
     <TaskArea>
       <TaskSubArea>
@@ -18,7 +19,6 @@ const Task = () => {
         <TaskCompleted>{tasksCompleted}</TaskCompleted>
       </TaskSubArea>
     </TaskArea>
-    
   );
 };
 
@@ -31,11 +31,13 @@ const TaskArea = styled.View`
   padding-left: 30px;
   padding-right: 30px;
 `;
+
 const TaskSubArea = styled.View`
   flex-direction: row;
   align-items: center;
   gap: 8px;
 `;
+
 const TaskCreated = styled.Text`
   min-width: 30px;
   padding: 4px 8px;
@@ -45,6 +47,7 @@ const TaskCreated = styled.Text`
   text-align: center;
   font-weight: 700;
 `;
+
 const TaskCompleted = styled.Text`
   min-width: 30px;
   padding: 4px 8px;
@@ -54,4 +57,5 @@ const TaskCompleted = styled.Text`
   text-align: center;
   font-weight: 700;
 `;
+
 export default Task;

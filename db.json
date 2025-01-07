@@ -2,153 +2,28 @@
   "tarefas": [
     {
       "id": 1,
-      "tarefas": "Desenvolver interface de login",
-      "completed": "false"
+      "task": "Desenvolver a interface de login com os componentes necessários para o sistema de autenticação",
+      "completed": false
     },
     {
       "id": 2,
-      "tarefas": "Implementar autenticação com API",
-      "completed": "true"
+      "task": "Implementar autenticação com API, utilizando token JWT para validação do usuário",
+      "completed": true
     },
     {
       "id": 3,
-      "tarefas": "Criar componente de lista de tarefas",
-      "completed": "false"
+      "task": "Criar o componente de lista de tarefas com funcionalidades de adicionar e excluir tarefas",
+      "completed": false
     },
     {
       "id": 4,
-      "tarefas": "Estudar documentação do React Native",
-      "completed": "true"
+      "task": "Estudar a documentação do React Native para entender seus principais conceitos e funcionalidades",
+      "completed": true
     },
     {
-      "id": 5,
-      "tarefas": "Fazer desafio da Uol",
-      "completed": "true"
-    },
-    {
-      "id": 6,
-      "tarefas": "Configurar ambiente de desenvolvimento",
-      "completed": "true"
-    },
-    {
-      "id": 7,
-      "tarefas": "Implementar sistema de busca",
-      "completed": "false"
-    },
-    {
-      "id": 8,
-      "tarefas": "Criar testes unitários",
-      "completed": "false"
-    },
-    {
-      "id": 9,
-      "tarefas": "Otimizar performance do app",
-      "completed": "false"
-    },
-    {
-      "id": 10,
-      "tarefas": "Fazer code review",
-      "completed": "true"
-    },
-    {
-      "id": 11,
-      "tarefas": "Implementar filtro de tarefas",
-      "completed": "false"
-    },
-    {
-      "id": 12,
-      "tarefas": "Adicionar animações de loading",
-      "completed": "false"
-    },
-    {
-      "id": 13,
-      "tarefas": "Resolver bugs de interface",
-      "completed": "true"
-    },
-    {
-      "id": 14,
-      "tarefas": "Documentar código",
-      "completed": "false"
-    },
-    {
-      "id": 15,
-      "tarefas": "Implementar tratamento de erros",
-      "completed": "false"
-    },
-    {
-      "id": 16,
-      "tarefas": "Criar componentes reutilizáveis",
-      "completed": "true"
-    },
-    {
-      "id": 17,
-      "tarefas": "Testar responsividade",
-      "completed": "false"
-    },
-    {
-      "id": 18,
-      "tarefas": "Implementar Dark Mode",
-      "completed": "false"
-    },
-    {
-      "id": 19,
-      "tarefas": "Configurar CI/CD",
-      "completed": "true"
-    },
-    {
-      "id": 20,
-      "tarefas": "Otimizar requisições à API",
-      "completed": "false"
-    },
-    {
-      "id": 21,
-      "tarefas": "Implementar cache local",
-      "completed": "false"
-    },
-    {
-      "id": 22,
-      "tarefas": "Adicionar feedback visual",
-      "completed": "true"
-    },
-    {
-      "id": 23,
-      "tarefas": "Refatorar código legado",
-      "completed": "false"
-    },
-    {
-      "id": 24,
-      "tarefas": "Implementar offline mode",
-      "completed": "false"
-    },
-    {
-      "id": 25,
-      "tarefas": "Criar README do projeto",
-      "completed": "true"
-    },
-    {
-      "id": 26,
-      "tarefas": "Configurar ambiente de produção",
-      "completed": "false"
-    },
-    {
-      "id": 27,
-      "tarefas": "Implementar notificações",
-      "completed": "false"
-    },
-    {
-      "id": 28,
-      "tarefas": "Realizar testes de usabilidade",
-      "completed": "true"
-    },
-    {
-      "id": 29,
-      "tarefas": "Otimizar assets do app",
-      "completed": "false"
-    },
-    {
-      "id": 30,
-      "tarefas": "Fazer deploy na AWS",
-      "completed": "false"
+      "id": "286d",
+      "task": "Ola mundo",
+      "completed": false
     }
   ]
 }

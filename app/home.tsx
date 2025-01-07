@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { SafeAreaView, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, View, Alert, FlatList } from "react-native";
 import styled from "styled-components/native";
 import Header from "../src/components/header/header";
 import Task from "../src/components/task/task";
@@ -8,41 +8,99 @@ import { Button } from "../src/components/button/button";
 import AddTask from "../assets/image/createTask.svg";
 import TaskList from "../src/components/task/taskList";
 import Empty from "../src/components/task/empty";
-
-import Trash from "../src/components/modal/trashModal/trash";
-import Loading from "../src/components/task/loading";
+import ErrorModal from "../src/components/modal/errorApi/errorApi";
+import api from "../src/services/axiosInstance";
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [error, setError] = useState(false);
 
-  const handleOpenModal = () => {
-    setModalVisible(true); 
+  interface Task {
+    id: string;
+    task: string; 
+    completed: boolean | string
+  }
+
+  const fetchTasks = async () => {
+    try {
+      const response = await api.get<Task[]>("/tarefas");
+
+      const tasksFormatted = response.data.map((task: Task) => ({
+        id: task.id,
+        task: task.task,
+        completed: task.completed === "true" || task.completed === true,
+      }));
+
+      setTasks(tasksFormatted);
+      setError(false);
+    } catch (error) {
+      console.error("Erro ao buscar tarefas:", error);
+      setError(true);
+    }
   };
 
-  const handleCloseModal = () => {
-    setModalVisible(false); 
+  const handleAddTask = async (task: { id?: string; task: string }) => {
+    try {
+      if (task.id) {
+        await api.put(`/tarefas/${task.id}`, {
+          task: task.task,
+          completed: false,
+        });
+      } else {
+        await api.post("/tarefas", {
+          task: task.task,
+          completed: false,
+        });
+      }
+      fetchTasks();
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível adicionar ou editar a tarefa.");
+    }
   };
+
+  const handleRetry = () => {
+    setError(false);
+    fetchTasks();
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const handleOpenModal = () => setModalVisible(true);
+  const handleCloseModal = () => setModalVisible(false);
 
   return (
     <Container>
       <Header />
       <Content>
-        <Task />
-        <TaskList />
-        <TaskList />
-        <TaskList />
-        <TaskList />
-
-        <TaskModal
-          visible={modalVisible}
-          onClose={handleCloseModal}
-          onAddTask={(task: string) => console.log("Nova tarefa:", task)}
+        <Task
+          tasksCreated={tasks.length}
+          tasksCompleted={tasks.filter((task) => task.completed).length}
         />
+        {tasks.length > 0 ? (
+          <FlatList
+            data={tasks}
+            renderItem={({ item }) => (
+              <TaskList key={item.id} task={item} onTaskUpdate={fetchTasks} />
+            )}
+            keyExtractor={(item) => item.id.toString()}
+            initialNumToRender={10}  
+          />
+        ) : (
+          <Empty />
+        )}
       </Content>
+      <ErrorModal
+        visible={error}
+        onRetry={handleRetry}
+        onClose={() => setError(false)}
+      />
       <FloatingButton>
         <Button
           width={"100%"}
-          height={"52"}
+          height={52}
           style={{ position: "absolute", bottom: 16, right: 16 }}
           onPress={handleOpenModal}
         >
@@ -50,6 +108,11 @@ export default function HomeScreen() {
           <AddTask />
         </Button>
       </FloatingButton>
+      <TaskModal
+        visible={modalVisible}
+        onClose={handleCloseModal}
+        onTaskSubmit={handleAddTask}
+      />
     </Container>
   );
 }

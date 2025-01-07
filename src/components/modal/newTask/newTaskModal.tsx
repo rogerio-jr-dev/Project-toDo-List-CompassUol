@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-native";
 import styled from "styled-components/native";
 import AddTask from "../../../../assets/image/createTask.svg";
@@ -7,23 +7,37 @@ import CloseModal from "../../../../assets/image/close.svg";
 type ModalProps = {
   visible: boolean;
   onClose: () => void;
-  onAddTask: (task: string) => void;
+  onTaskSubmit: (task: { id?: string; task: string }) => void; 
+  task?: { id: string; task: string } | null;
 };
 
-const TaskModal: React.FC<ModalProps> = ({ visible, onClose, onAddTask }) => {
-  const [task, setTask] = useState("");
+const TaskModal: React.FC<ModalProps> = ({
+  visible,
+  onClose,
+  onTaskSubmit,
+  task,
+}) => {
+  const [taskTitle, setTaskTitle] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [inputHeight, setInputHeight] = useState(61);
 
+  useEffect(() => {
+    if (task) {
+      setTaskTitle(task.task);
+    } else {
+      setTaskTitle("");
+    }
+  }, [task]);
+
   const handleInputChange = (text: string) => {
-    setTask(text);
+    setTaskTitle(text);
     setIsButtonDisabled(text.trim() === "");
   };
 
-  const handleAddTask = () => {
-    if (task.trim()) {
-      onAddTask(task);
-      setTask("");
+  const handleSubmit = () => {
+    if (taskTitle.trim()) {
+      onTaskSubmit({ id: task?.id, task: taskTitle });
+      setTaskTitle("");
       onClose();
     }
   };
@@ -32,11 +46,11 @@ const TaskModal: React.FC<ModalProps> = ({ visible, onClose, onAddTask }) => {
     <Modal visible={visible} animationType="slide" transparent={true}>
       <ModalOverlay>
         <ModalContainer>
-          <Title>Nova Tarefa</Title>
+          <Title>{task ? "Editar Tarefa" : "Nova Tarefa"}</Title>
           <InputContainer>
             <TaskInput
-              placeholder="Adicione uma nova tarefa"
-              value={task}
+              placeholder="Adicione ou edite a tarefa"
+              value={taskTitle}
               onChangeText={handleInputChange}
               multiline
               maxLength={200}
@@ -47,11 +61,9 @@ const TaskModal: React.FC<ModalProps> = ({ visible, onClose, onAddTask }) => {
               style={{ height: Math.max(61, inputHeight) }}
             />
             <AddButton
-              style={{
-                backgroundColor: isButtonDisabled ? "#6B6571" : "#6F3CC3",
-              }}
-              onPress={handleAddTask}
+              onPress={handleSubmit}
               disabled={isButtonDisabled}
+              buttonColor={isButtonDisabled ? "#6B6571" : "#6F3CC3"}
             >
               <ButtonText>
                 <AddTask />
@@ -111,13 +123,14 @@ const TaskInput = styled.TextInput`
   margin-right: 10px;
 `;
 
-const AddButton = styled.TouchableOpacity`
+const AddButton = styled.TouchableOpacity<{ buttonColor: string }>`
   width: 61px;
   height: 61px;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
   padding-horizontal: 15px;
+  background-color: ${(props) => props.buttonColor};
 `;
 
 const ButtonText = styled.Text`

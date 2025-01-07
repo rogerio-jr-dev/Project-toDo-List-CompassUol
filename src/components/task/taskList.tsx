@@ -1,50 +1,81 @@
 import React, { useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import styled from "styled-components/native";
 import Trash from "../../../assets/image/trash.svg";
 import Checked from "../../../assets/image/checked.svg";
 import NotChecked from "../../../assets/image/notCheked.svg";
-import TrashModal from "../../components/modal/trashModal/trash"; 
+import api from "../../services/axiosInstance";
+import TrashModal from "../modal/trashModal/trash"; 
 
-const TaskList = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isStruckThrough, setIsStruckThrough] = useState(false);
+interface TaskListProps {
+  task: { id: string; task: string; completed: boolean | string};
+  onTaskUpdate: () => void;
+}
+
+const TaskList: React.FC<TaskListProps> = ({ task, onTaskUpdate }) => {
+  const [isCompleted, setIsCompleted] = useState(task.completed);
   const [modalVisible, setModalVisible] = useState(false); 
 
-  const handlePress = () => {
-    setIsChecked(!isChecked);
-    setIsStruckThrough(!isStruckThrough);
+  const [taskToDelete, setTaskToDelete] = useState<{
+    id: string;
+    task: string;
+  } | null>(null); 
+
+  const toggleComplete = async () => {
+    try {
+      await api.patch(`/${task.id}`, { completed: !isCompleted });
+      setIsCompleted(!isCompleted);
+      onTaskUpdate();
+    } catch {
+      alert("Erro ao atualizar tarefa.");
+    }
   };
 
-  const handleTrashPress = () => {
-    setModalVisible(true); 
+  const deleteTask = async () => {
+    try {
+      if (taskToDelete) {
+        await api.delete(`/${taskToDelete.id}`);
+        onTaskUpdate();
+        setTaskToDelete(null);  
+      }
+    } catch {
+      alert("Erro ao deletar tarefa.");
+    }
   };
 
-  const closeModal = () => {
-    setModalVisible(false); 
+  const openModal = (task: { id: string; task: string }) => {
+    setTaskToDelete(task);
+    setModalVisible(true);
   };
 
+  const closeModal = () => setModalVisible(false); 
   return (
     <Container>
-      <StyledView isChecked={isChecked}>
-        <Pressable onPress={handlePress}>
-          {isChecked ? <Checked /> : <NotChecked />}
+      <StyledView isChecked={isCompleted}>
+        <Pressable onPress={toggleComplete}>
+          {isCompleted ? <Checked /> : <NotChecked />}
         </Pressable>
         <StyledText
           style={{
             flexWrap: "wrap",
             width: "83%",
-            textDecorationLine: isStruckThrough ? "line-through" : "none",
+            textDecorationLine: isCompleted ? "line-through" : "none",
           }}
         >
-          Integer urna interdum massa libero auctor neque turpis turpis semper.
-          Duis vel sed fames integer.
+          {task.task}
         </StyledText>
-        <Pressable onPress={handleTrashPress}>
+        <Pressable onPress={() => openModal(task)}>
           <Trash />
         </Pressable>
-      </StyledView>
-      <TrashModal visible={modalVisible} closeModal={closeModal} />
+      </StyledView> 
+      {taskToDelete && (
+        <TrashModal
+          visible={modalVisible}
+          closeModal={closeModal}
+          onConfirmDelete={deleteTask}
+          task={taskToDelete}  
+        />
+      )}
     </Container>
   );
 };
@@ -56,18 +87,17 @@ const Container = styled.View`
   margin-bottom: 12px;
 `;
 
-const StyledView = styled.View<{ isChecked?: boolean }>`
+const StyledView = styled.View<{ isChecked: boolean | string}>`
   flex-direction: row;
   padding: 12px;
   gap: 8px;
   background-color: ${(props) =>
     props.isChecked
       ? props.theme.colors.gray[100]
-      : props.theme.colors.gray[400]};
+      : props.theme.colors.gray[300]};
   border-radius: 8px;
   border: 2px solid ${(props) => props.theme.colors.gray[400]};
 `;
-
 
 const StyledText = styled.Text`
   font-family: ${(props) => props.theme.fonts.inter.regular};
