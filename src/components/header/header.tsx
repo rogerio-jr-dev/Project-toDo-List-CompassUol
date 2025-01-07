@@ -5,7 +5,6 @@ import { useAuth } from "../../services/AuthContext";
 import { router } from "expo-router";
 import Logo from "../../../assets/image/logo.svg";
 import LogOutIcon from "../../../assets/image/logOut.svg";
-import SearchIcon from "../../../assets/image/search.svg";
 
 import Search from './search';
 
@@ -23,12 +22,6 @@ import Search from './search';
           <StyledLogOutIcon />
         </StyledButton>
         <Logo />
-        <SearchArea>
-          <Search />
-          <Icon>
-            <SearchIcon />
-          </Icon>
-        </SearchArea>
     </RNView>
   );
 }
@@ -58,16 +51,17 @@ const StyledLogOutIcon = styled(LogOutIcon).attrs({
   height: 26,
 })``;
 
-const SearchArea = styled.View`
+export const SearchArea = styled.View`
   flex-direction: row;
   justify-content: center;
   gap: 8px;
   width: 70%;
   position: absolute;
-  bottom: -20px;
+  top: 140px;
+  left:55px;
   zIndex: 1;
 `;
-const Icon = styled.TouchableOpacity`
+export const Icon = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   padding:14px;

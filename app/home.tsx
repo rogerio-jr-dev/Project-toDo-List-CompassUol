@@ -6,20 +6,25 @@ import Task from "../src/components/task/task";
 import TaskModal from "../src/components/modal/newTask/newTaskModal";
 import { Button } from "../src/components/button/button";
 import AddTask from "../assets/image/createTask.svg";
+import SearchIcon from "../assets/image/search.svg";
 import TaskList from "../src/components/task/taskList";
 import Empty from "../src/components/task/empty";
 import ErrorModal from "../src/components/modal/errorApi/errorApi";
 import api from "../src/services/axiosInstance";
+import Search from "../src/components/header/search"; 
+import {Icon, SearchArea } from "../src/components/header/header"
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]); // Estado para armazenar as tarefas filtradas
   const [error, setError] = useState(false);
+  const [filterText, setFilterText] = useState(""); // Estado para o texto de filtro
 
   interface Task {
     id: string;
-    task: string; 
-    completed: boolean | string
+    task: string;
+    completed: boolean | string;
   }
 
   const fetchTasks = async () => {
@@ -33,6 +38,7 @@ export default function HomeScreen() {
       }));
 
       setTasks(tasksFormatted);
+      setFilteredTasks(tasksFormatted); // Inicializa as tarefas filtradas com todas as tarefas
       setError(false);
     } catch (error) {
       console.error("Erro ao buscar tarefas:", error);
@@ -64,6 +70,18 @@ export default function HomeScreen() {
     fetchTasks();
   };
 
+  const handleSearch = (text: string) => {
+    setFilterText(text); // Atualiza o texto de filtro
+    if (text === "") {
+      setFilteredTasks(tasks); // Se não houver texto, exibe todas as tarefas
+    } else {
+      const filtered = tasks.filter(
+        (task) => task.task.toLowerCase().includes(text.toLowerCase()) // Filtra com base no texto
+      );
+      setFilteredTasks(filtered);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -74,19 +92,27 @@ export default function HomeScreen() {
   return (
     <Container>
       <Header />
+      <SearchArea>
+        <Search onSearch={handleSearch} />{" "}
+        <Icon>
+          <SearchIcon />
+        </Icon>
+      </SearchArea>
+
+      {/* Passa a função handleSearch para o Search */}
       <Content>
         <Task
           tasksCreated={tasks.length}
           tasksCompleted={tasks.filter((task) => task.completed).length}
         />
-        {tasks.length > 0 ? (
+        {filteredTasks.length > 0 ? (
           <FlatList
-            data={tasks}
+            data={filteredTasks} // Usa filteredTasks ao invés de tasks
             renderItem={({ item }) => (
               <TaskList key={item.id} task={item} onTaskUpdate={fetchTasks} />
             )}
             keyExtractor={(item) => item.id.toString()}
-            initialNumToRender={10}  
+            initialNumToRender={10}
           />
         ) : (
           <Empty />
