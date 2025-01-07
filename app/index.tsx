@@ -74,7 +74,7 @@ export default function Screen() {
         </StyledView>
         {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
 
-        <Button onPress={handleLogin} width={"100%"} height={52}>
+        <Button onPress={handleLogin} width={"100%"} height={"52px"}>
           <Button.Title>Login</Button.Title>
         </Button>
       </InputArea>
@@ -108,6 +108,7 @@ const StyledInput = styled.TextInput<{ password?: boolean; error?: boolean }>`
     ${(props) =>
       props.error ? props.theme.colors.danger : props.theme.colors.gray[300]};
   border-radius: 8px;
+  font-family: ${(props) => props.theme.fonts.inter.regular};
   font-size: 16px;
   ${(props) => props.password && ` flex: 1; `}
 `;

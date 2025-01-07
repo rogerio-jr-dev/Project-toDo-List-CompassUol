@@ -49,6 +49,8 @@ export const StyledTouchableOpacity = styled(TouchableOpacity)<{
   flex-direction: row;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  font-family: ${(props) => props.theme.fonts.inter.bold};
+  font-size:14px;
   background-color: ${(props) => props.theme.colors.purple.base};
   border-radius: 8px;
   padding: ${(props) => (props.padding ? `${props.padding}px` : "0px")};

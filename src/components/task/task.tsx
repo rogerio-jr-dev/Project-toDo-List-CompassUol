@@ -27,6 +27,7 @@ const TaskArea = styled.View`
   justify-content: space-between;
   align-items: center;
   margin-top: 45px;
+  margin-bottom: 24px;
   padding-left: 30px;
   padding-right: 30px;
 `;

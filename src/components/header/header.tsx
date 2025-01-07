@@ -65,6 +65,7 @@ const SearchArea = styled.View`
   width: 70%;
   position: absolute;
   bottom: -20px;
+  zIndex: 1;
 `;
 const Icon = styled.TouchableOpacity`
   justify-content: center;
