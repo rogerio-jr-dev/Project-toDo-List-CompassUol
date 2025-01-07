@@ -1,29 +1,3 @@
 {
-  "tarefas": [
-    {
-      "id": 1,
-      "task": "Desenvolver a interface de login com os componentes necessários para o sistema de autenticação",
-      "completed": false
-    },
-    {
-      "id": 2,
-      "task": "Implementar autenticação com API, utilizando token JWT para validação do usuário",
-      "completed": true
-    },
-    {
-      "id": 3,
-      "task": "Criar o componente de lista de tarefas com funcionalidades de adicionar e excluir tarefas",
-      "completed": false
-    },
-    {
-      "id": 4,
-      "task": "Estudar a documentação do React Native para entender seus principais conceitos e funcionalidades",
-      "completed": true
-    },
-    {
-      "id": "286d",
-      "task": "Ola mundo",
-      "completed": false
-    }
-  ]
+  "tarefas": []
 }

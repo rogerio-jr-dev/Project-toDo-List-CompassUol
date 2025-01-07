@@ -13,20 +13,29 @@ interface TaskListProps {
 }
 
 const TaskList: React.FC<TaskListProps> = ({ task, onTaskUpdate }) => {
-  const [isCompleted, setIsCompleted] = useState(task.completed);
-  const [modalVisible, setModalVisible] = useState(false); 
-
+  const [isCompleted, setIsCompleted] = useState(task.completed); // Inicializa com o valor correto da tarefa
+  const [modalVisible, setModalVisible] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<{
     id: string;
     task: string;
-  } | null>(null); 
+  } | null>(null);
 
   const toggleComplete = async () => {
     try {
-      await api.patch(`/${task.id}`, { completed: !isCompleted });
-      setIsCompleted(!isCompleted);
-      onTaskUpdate();
-    } catch {
+      // Envia a requisição PATCH para atualizar o estado da tarefa na API
+      const response = await api.patch(`/tarefas/${task.id}`, {
+        completed: !isCompleted,
+      });
+
+      if (response.status === 200) {
+        // Verifica se a resposta foi bem sucedida
+        setIsCompleted((prev) => !prev); // Alterna o estado de completed
+        onTaskUpdate(); // Atualiza a lista de tarefas
+      } else {
+        alert("Erro ao atualizar tarefa.");
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar tarefa:", error);
       alert("Erro ao atualizar tarefa.");
     }
   };
@@ -34,11 +43,18 @@ const TaskList: React.FC<TaskListProps> = ({ task, onTaskUpdate }) => {
   const deleteTask = async () => {
     try {
       if (taskToDelete) {
-        await api.delete(`/${taskToDelete.id}`);
-        onTaskUpdate();
-        setTaskToDelete(null);  
+      
+        const response = await api.delete(`/tarefas/${taskToDelete.id}`);
+
+        if (response.status === 200) {
+          onTaskUpdate(); 
+          setTaskToDelete(null);
+        } else {
+          alert("Erro ao deletar tarefa.");
+        }
       }
-    } catch {
+    } catch (error) {
+      console.error("Erro ao deletar tarefa:", error);
       alert("Erro ao deletar tarefa.");
     }
   };
@@ -48,18 +64,19 @@ const TaskList: React.FC<TaskListProps> = ({ task, onTaskUpdate }) => {
     setModalVisible(true);
   };
 
-  const closeModal = () => setModalVisible(false); 
+  const closeModal = () => setModalVisible(false);
+
   return (
     <Container>
       <StyledView isChecked={isCompleted}>
         <Pressable onPress={toggleComplete}>
-          {isCompleted ? <Checked /> : <NotChecked />}
+          {isCompleted ? <Checked /> : <NotChecked />}{" "}
         </Pressable>
         <StyledText
           style={{
             flexWrap: "wrap",
             width: "83%",
-            textDecorationLine: isCompleted ? "line-through" : "none",
+            textDecorationLine: isCompleted ? "line-through" : "none",  
           }}
         >
           {task.task}
@@ -67,18 +84,19 @@ const TaskList: React.FC<TaskListProps> = ({ task, onTaskUpdate }) => {
         <Pressable onPress={() => openModal(task)}>
           <Trash />
         </Pressable>
-      </StyledView> 
+      </StyledView>
       {taskToDelete && (
         <TrashModal
           visible={modalVisible}
           closeModal={closeModal}
           onConfirmDelete={deleteTask}
-          task={taskToDelete}  
+          task={taskToDelete}
         />
       )}
     </Container>
   );
 };
+
 
 const Container = styled.View`
   align-items: center;
